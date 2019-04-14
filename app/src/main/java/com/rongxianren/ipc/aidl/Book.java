@@ -1,4 +1,4 @@
-package com.rongxianren.ipc.aidl.binder.entity;
+package com.rongxianren.ipc.aidl;
 
 import android.os.Parcel;
 import android.os.Parcelable;
