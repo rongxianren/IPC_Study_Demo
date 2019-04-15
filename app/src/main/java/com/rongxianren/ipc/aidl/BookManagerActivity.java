@@ -23,6 +23,11 @@ public class BookManagerActivity extends AppCompatActivity {
         public void onServiceConnected(ComponentName name, IBinder service) {
             System.out.println("---BookManagerActivity---onServiceConnected = " + name);
             mIBookManagerBinder = IBookManager.Stub.asInterface(service);
+            try {
+                mIBookManagerBinder.registerListener(mIOnNewBookArrivedListener);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
@@ -69,4 +74,11 @@ public class BookManagerActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    IOnNewBookArrivedListener mIOnNewBookArrivedListener = new IOnNewBookArrivedListener.Stub() {
+        @Override
+        public void onNewBookArrived(Book newBook) throws RemoteException {
+            System.out.println(newBook.toString());
+        }
+    };
 }

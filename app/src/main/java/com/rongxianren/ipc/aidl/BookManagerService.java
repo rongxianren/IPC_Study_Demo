@@ -14,6 +14,7 @@ public class BookManagerService extends Service {
 
     private CopyOnWriteArrayList<Book> mBookList = new CopyOnWriteArrayList();
 
+    private CopyOnWriteArrayList<IOnNewBookArrivedListener> mListenerList = new CopyOnWriteArrayList();
     private Binder mBinder = new IBookManager.Stub() {
         @Override
         public List<Book> getBookList() throws RemoteException {
@@ -23,16 +24,19 @@ public class BookManagerService extends Service {
         @Override
         public void addBook(Book book) throws RemoteException {
             mBookList.add(book);
+            for (IOnNewBookArrivedListener listener : mListenerList) {
+                listener.onNewBookArrived(book);
+            }
         }
 
         @Override
         public void registerListener(IOnNewBookArrivedListener listener) throws RemoteException {
-
+            mListenerList.add(listener);
         }
 
         @Override
         public void unRegisterListener(IOnNewBookArrivedListener listener) throws RemoteException {
-
+            mListenerList.remove(listener);
         }
     };
 
