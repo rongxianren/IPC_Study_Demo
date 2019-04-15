@@ -24,6 +24,16 @@ public class BookManagerService extends Service {
         public void addBook(Book book) throws RemoteException {
             mBookList.add(book);
         }
+
+        @Override
+        public void registerListener(IOnNewBookArrivedListener listener) throws RemoteException {
+
+        }
+
+        @Override
+        public void unRegisterListener(IOnNewBookArrivedListener listener) throws RemoteException {
+
+        }
     };
 
     @Override
