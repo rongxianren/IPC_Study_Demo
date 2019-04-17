@@ -20,6 +20,11 @@ public class Book implements Parcelable {
         mBookName = in.readString();
     }
 
+    @Override
+    public String toString() {
+        return "[" + mBookName + "," + mBookId + "]";
+    }
+
     public static final Creator<Book> CREATOR = new Creator<Book>() {
         @Override
         public Book createFromParcel(Parcel in) {
@@ -41,9 +46,5 @@ public class Book implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mBookId);
         dest.writeString(mBookName);
-    }
-
-    private Object readResolve() throws ObjectStreamException {
-        return null;
     }
 }
