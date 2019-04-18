@@ -9,6 +9,7 @@ import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.rongxianren.ipc.R;
 
@@ -79,6 +80,8 @@ public class BookManagerActivity extends AppCompatActivity {
         @Override
         public void onNewBookArrived(Book newBook) throws RemoteException {
             System.out.println(newBook.toString());
+            System.out.println(" ---onNewBookArrived--- currentThread = " + Thread.currentThread().getName());
+//            Toast.makeText(BookManagerActivity.this, "新书到了", Toast.LENGTH_LONG).show();
         }
     };
 }
