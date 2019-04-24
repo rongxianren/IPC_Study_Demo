@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class BookManagerService extends Service {
     private AtomicBoolean mIsServiceDestoryed = new AtomicBoolean(false);
     private CopyOnWriteArrayList<Book> mBookList = new CopyOnWriteArrayList();
 
-    private CopyOnWriteArrayList<IOnNewBookArrivedListener> mListenerList = new CopyOnWriteArrayList();
+    private RemoteCallbackList<IOnNewBookArrivedListener> mListenerList = new RemoteCallbackList();
     private Binder mBinder = new IBookManager.Stub() {
         @Override
         public List<Book> getBookList() throws RemoteException {
@@ -41,16 +42,29 @@ public class BookManagerService extends Service {
 
         @Override
         public void registerListener(IOnNewBookArrivedListener listener) throws RemoteException {
-            mListenerList.add(listener);
-            System.out.println("---registerListener--- currentThread = " + Thread.currentThread().getName());
+            mListenerList.register(listener);
+//            if (!mListenerList.contains(listener)) {
+//                mListenerList.add(listener);
+//            } else {
+//                System.out.println("---already exists ");
+//            }
+//
+//            System.out.println(" mListenerList size = " + mListenerList.size());
+
         }
 
         @Override
         public void unRegisterListener(IOnNewBookArrivedListener listener) throws RemoteException {
-            if (mListenerList.contains(listener)) {
-                mListenerList.remove(listener);
-                System.out.println("---unRegisterListener--- currentThread = " + Thread.currentThread().getName());
-            }
+            mListenerList.unregister(listener);
+
+//            if (mListenerList.contains(listener)) {
+//                mListenerList.remove(listener);
+//                System.out.println("---unRegisterListener  success---  ");
+//            } else {
+//                System.out.println("---has not find listener---  ");
+//            }
+
+            System.out.println(" mListenerList size = " + mListenerList.getRegisteredCallbackCount());
         }
     };
 
@@ -67,6 +81,7 @@ public class BookManagerService extends Service {
     public void onDestroy() {
         super.onDestroy();
         mIsServiceDestoryed.set(true);
+        System.out.println(" ---BookManagerService--- onDestroy");
     }
 
     @Override
@@ -76,9 +91,12 @@ public class BookManagerService extends Service {
 
     private void onNewBookArrived(Book book) throws RemoteException {
         mBookList.add(book);
-        for (IOnNewBookArrivedListener listener : mListenerList) {
+        int count = mListenerList.beginBroadcast();
+        for (int i = 0; i < count; i++) {
+            IOnNewBookArrivedListener listener = mListenerList.getBroadcastItem(i);
             listener.onNewBookArrived(book);
         }
+        mListenerList.finishBroadcast();
     }
 
     private class ServiceWorker implements Runnable {

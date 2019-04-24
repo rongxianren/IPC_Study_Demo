@@ -52,6 +52,11 @@ public class BookManagerActivity extends AppCompatActivity {
         unbindService(mServiceConnection);
         super.onDestroy();
         if (mIBookManagerBinder != null && mIBookManagerBinder.asBinder().isBinderAlive()) {
+            try {
+                mIBookManagerBinder.unRegisterListener(mIOnNewBookArrivedListener);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
     }
 
