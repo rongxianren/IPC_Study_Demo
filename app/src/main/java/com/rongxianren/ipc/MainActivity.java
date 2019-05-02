@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.rongxianren.ipc.aidl.BookManagerActivity;
+import com.rongxianren.ipc.messenger.MessengerActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +18,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void goBookManagerActivity(View view) {
         Intent intent = new Intent(this, BookManagerActivity.class);
+        startActivity(intent);
+    }
+
+    public void goMessengerActivity(View view) {
+        Intent intent = new Intent(this, MessengerActivity.class);
         startActivity(intent);
     }
 }

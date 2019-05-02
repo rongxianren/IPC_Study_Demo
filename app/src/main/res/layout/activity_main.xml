@@ -9,12 +9,25 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:background="@color/colorAccent"
         android:layout_width="150dp"
         android:layout_height="40dp"
+        android:background="@color/colorAccent"
         android:gravity="center"
-        android:text="BookManagerActivity"
         android:onClick="goBookManagerActivity"
+        android:text="BookManagerActivity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:onClick="goMessengerActivity"
+        android:text="MessengerActivity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
