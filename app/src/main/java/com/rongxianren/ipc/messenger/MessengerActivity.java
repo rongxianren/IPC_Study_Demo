@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
@@ -20,6 +21,22 @@ import java.nio.BufferUnderflowException;
 public class MessengerActivity extends AppCompatActivity {
 
     private Messenger mMessenger;
+
+    private Messenger messengerReply = new Messenger(new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MyConstant.MSg_FROM_SERVER:
+                    System.out.println(msg.getData().get("reply"));
+                    break;
+                default:
+                    super.handleMessage(msg);
+                    break;
+
+            }
+
+        }
+    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +65,9 @@ public class MessengerActivity extends AppCompatActivity {
     public void sendMessage(View view) {
         Message message = Message.obtain(null, MyConstant.MSG_FROM_CLIENT);
         Bundle bundle = new Bundle();
-        bundle.putString("msg", "this msg from client");
+        bundle.putString("msg", "hello this is client");
         message.setData(bundle);
+        message.replyTo = messengerReply;
         try {
             if (null != mMessenger) {
                 mMessenger.send(message);

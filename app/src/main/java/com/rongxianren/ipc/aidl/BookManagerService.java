@@ -37,7 +37,8 @@ public class BookManagerService extends Service {
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
-            mBookList.add(book);
+//            mBookList.add(book);
+            onNewBookArrived(book);
             System.out.println("---addBook--- currentThread = " + Thread.currentThread().getName());
         }
 

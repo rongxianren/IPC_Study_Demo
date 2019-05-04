@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".messenger.MessengerActivity"></activity>
+        <activity android:name=".copyaidl.CopyAidlActivity" />
+        <activity android:name=".messenger.MessengerActivity" />
         <activity android:name=".aidl.BookManagerActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -31,6 +32,9 @@
         <service
             android:name=".messenger.MessengerService"
             android:process=":messenger" />
+        <service
+            android:name=".copyaidl.CopyAidlService"
+            android:process=":copyservice" />
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.rongxianren.ipc.aidl.BookManagerActivity;
+import com.rongxianren.ipc.copyaidl.CopyAidlActivity;
 import com.rongxianren.ipc.messenger.MessengerActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void goMessengerActivity(View view) {
         Intent intent = new Intent(this, MessengerActivity.class);
+        startActivity(intent);
+    }
+
+    public void goCopyAidlActivity(View view) {
+        Intent intent = new Intent(this, CopyAidlActivity.class);
         startActivity(intent);
     }
 }
