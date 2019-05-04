@@ -1,4 +1,4 @@
-package com.rongxianren.ipc.copyaidl;
+package com.rongxianren.ipc.manualaidl;
 
 import android.os.Binder;
 import android.os.IBinder;

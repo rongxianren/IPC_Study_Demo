@@ -1,6 +1,5 @@
-package com.rongxianren.ipc.copyaidl;
+package com.rongxianren.ipc.manualaidl;
 
-import android.os.IBinder;
 import android.os.IInterface;
 
 import com.rongxianren.ipc.aidl.Book;

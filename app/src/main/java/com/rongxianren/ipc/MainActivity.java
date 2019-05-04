@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.rongxianren.ipc.aidl.BookManagerActivity;
-import com.rongxianren.ipc.copyaidl.CopyAidlActivity;
+import com.rongxianren.ipc.manualaidl.CopyAidlActivity;
 import com.rongxianren.ipc.messenger.MessengerActivity;
 
 public class MainActivity extends AppCompatActivity {
