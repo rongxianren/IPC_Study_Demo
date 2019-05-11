@@ -1,8 +1,14 @@
 package com.rongxianren.ipc.manualaidl;
 
 import android.os.Binder;
+import android.os.IBinder;
+import android.os.IInterface;
+import android.os.Parcel;
+import android.os.RemoteException;
 
 import com.rongxianren.ipc.aidl.Book;
+
+import java.util.List;
 
 public abstract class IBookManagerImpl extends Binder implements IBookManager {
 
@@ -23,7 +29,7 @@ public abstract class IBookManagerImpl extends Binder implements IBookManager {
         if ((obj == null)) {
             return null;
         }
-        android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
+        IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
         if (((iin != null) && (iin instanceof IBookManager))) {
             return ((IBookManager) iin);
         }
@@ -31,12 +37,12 @@ public abstract class IBookManagerImpl extends Binder implements IBookManager {
     }
 
     @Override
-    public android.os.IBinder asBinder() {
+    public IBinder asBinder() {
         return this;
     }
 
     @Override
-    public boolean onTransact(int code, android.os.Parcel data, android.os.Parcel reply, int flags) throws android.os.RemoteException {
+    public boolean onTransact(int code, Parcel data, Parcel reply, int flags) throws RemoteException {
         java.lang.String descriptor = DESCRIPTOR;
         switch (code) {
             case INTERFACE_TRANSACTION: {
@@ -52,9 +58,9 @@ public abstract class IBookManagerImpl extends Binder implements IBookManager {
             }
             case TRANSACTION_addBook: {
                 data.enforceInterface(descriptor);
-                com.rongxianren.ipc.aidl.Book _arg0;
+                Book _arg0;
                 if ((0 != data.readInt())) {
-                    _arg0 = com.rongxianren.ipc.aidl.Book.CREATOR.createFromParcel(data);
+                    _arg0 = Book.CREATOR.createFromParcel(data);
                 } else {
                     _arg0 = null;
                 }
@@ -85,9 +91,9 @@ public abstract class IBookManagerImpl extends Binder implements IBookManager {
     }
 
     private static class Proxy implements IBookManager {
-        private android.os.IBinder mRemote;
+        private IBinder mRemote;
 
-        Proxy(android.os.IBinder remote) {
+        Proxy(IBinder remote) {
             mRemote = remote;
         }
 
@@ -96,20 +102,20 @@ public abstract class IBookManagerImpl extends Binder implements IBookManager {
             return mRemote;
         }
 
-        public java.lang.String getInterfaceDescriptor() {
+        public String getInterfaceDescriptor() {
             return DESCRIPTOR;
         }
 
         @Override
-        public java.util.List<com.rongxianren.ipc.aidl.Book> getBookList() throws android.os.RemoteException {
-            android.os.Parcel _data = android.os.Parcel.obtain();
-            android.os.Parcel _reply = android.os.Parcel.obtain();
+        public List<Book> getBookList() throws RemoteException {
+            android.os.Parcel _data = Parcel.obtain();
+            android.os.Parcel _reply = Parcel.obtain();
             java.util.List<com.rongxianren.ipc.aidl.Book> _result;
             try {
                 _data.writeInterfaceToken(DESCRIPTOR);
                 mRemote.transact(IBookManagerImpl.TRANSACTION_getBookList, _data, _reply, 0);
                 _reply.readException();
-                _result = _reply.createTypedArrayList(com.rongxianren.ipc.aidl.Book.CREATOR);
+                _result = _reply.createTypedArrayList(Book.CREATOR);
             } finally {
                 _reply.recycle();
                 _data.recycle();
@@ -118,9 +124,9 @@ public abstract class IBookManagerImpl extends Binder implements IBookManager {
         }
 
         @Override
-        public void addBook(com.rongxianren.ipc.aidl.Book book) throws android.os.RemoteException {
-            android.os.Parcel _data = android.os.Parcel.obtain();
-            android.os.Parcel _reply = android.os.Parcel.obtain();
+        public void addBook(Book book) throws RemoteException {
+            Parcel _data = Parcel.obtain();
+            Parcel _reply = Parcel.obtain();
             try {
                 _data.writeInterfaceToken(DESCRIPTOR);
                 if ((book != null)) {
@@ -139,8 +145,8 @@ public abstract class IBookManagerImpl extends Binder implements IBookManager {
 
         @Override
         public void registerListener(IOnNewBookArrivedListener listener) throws android.os.RemoteException {
-            android.os.Parcel _data = android.os.Parcel.obtain();
-            android.os.Parcel _reply = android.os.Parcel.obtain();
+            Parcel _data = Parcel.obtain();
+            Parcel _reply = Parcel.obtain();
             try {
                 _data.writeInterfaceToken(DESCRIPTOR);
                 _data.writeStrongBinder((((listener != null)) ? (listener.asBinder()) : (null)));
@@ -153,9 +159,9 @@ public abstract class IBookManagerImpl extends Binder implements IBookManager {
         }
 
         @Override
-        public void unRegisterListener(IOnNewBookArrivedListener listener) throws android.os.RemoteException {
-            android.os.Parcel _data = android.os.Parcel.obtain();
-            android.os.Parcel _reply = android.os.Parcel.obtain();
+        public void unRegisterListener(IOnNewBookArrivedListener listener) throws RemoteException {
+            Parcel _data = Parcel.obtain();
+            Parcel _reply = Parcel.obtain();
             try {
                 _data.writeInterfaceToken(DESCRIPTOR);
                 _data.writeStrongBinder((((listener != null)) ? (listener.asBinder()) : (null)));
@@ -168,9 +174,9 @@ public abstract class IBookManagerImpl extends Binder implements IBookManager {
         }
     }
 
-    static final int TRANSACTION_getBookList = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
-    static final int TRANSACTION_addBook = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
-    static final int TRANSACTION_registerListener = (android.os.IBinder.FIRST_CALL_TRANSACTION + 2);
-    static final int TRANSACTION_unRegisterListener = (android.os.IBinder.FIRST_CALL_TRANSACTION + 3);
+    static final int TRANSACTION_getBookList = (IBinder.FIRST_CALL_TRANSACTION + 0);
+    static final int TRANSACTION_addBook = (IBinder.FIRST_CALL_TRANSACTION + 1);
+    static final int TRANSACTION_registerListener = (IBinder.FIRST_CALL_TRANSACTION + 2);
+    static final int TRANSACTION_unRegisterListener = (IBinder.FIRST_CALL_TRANSACTION + 3);
 
 }
