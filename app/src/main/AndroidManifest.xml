@@ -17,7 +17,16 @@
         android:theme="@style/AppTheme">
         <activity android:name=".manualaidl.CopyAidlActivity" />
         <activity android:name=".messenger.MessengerActivity" />
-        <activity android:name=".aidl.BookManagerActivity" />
+        <activity
+            android:name=".aidl.BookManagerActivity"
+            android:launchMode="singleTask"
+
+            android:taskAffinity="com.rongxianren.ipc.task">
+            <intent-filter>
+                <action android:name="com.rongxianren.ipc.bookManagerActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
